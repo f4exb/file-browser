@@ -1,0 +1,29 @@
+{
+  "name": "file-browser",
+  "description": "Web based file browser",
+  "version": "0.0.1",
+  "homepage": "https://github.com/f4exb/file-browser",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.2.0",
+    "components-font-awesome": "*",
+    "datatables": "*"
+  },
+  "main": "server/index.js",
+  "keywords": [
+    "file"
+  ],
+  "authors": [
+    "f4exb"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/libs",
+    "test",
+    "tests"
+  ]
+}
