@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>File Browser</title>
+        <link rel="stylesheet" href="/client/bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/client/bower_components/components-font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/client/css/app.css">
+    </head>
+    <body>
+        <div class="panel panel-default mainpanel">
+            <div class="panel-heading">
+                File Browser
+                <span class="up">
+                    <i class="fa fa-level-up"></i> Up
+                </span>
+                <span class="filterfiles">
+                    <i class="fa fa-filter"></i> Filter
+                </span>
+                &nbsp;
+                <input type="text" class="filtertext"/>
+            </div>
+            <div class="panel-body">
+                <table class="linksholder">
+                </table>
+            </div>
+            <div class="panel-heading">
+                Find and Search
+                <span class="findfiles">
+                    <i class="fa fa-search"></i> Find
+                </span>
+                &nbsp;
+                <input type="text" class="findtext"/>
+            </div>
+            <div class="panel-body">
+                <table class="findlinksholder">
+                </table>
+            </div>
+        </div> 
+        <script src="/client/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="/client/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="/client/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+        <script src="/client/js/app.js"></script>
+    </body>
+</html>
