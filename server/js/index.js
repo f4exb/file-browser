@@ -110,7 +110,7 @@ app.get('/find', function(req, res) {
         for (var i in filelist) {
             filepath = filelist[i];
             ext = path.extname(filepath);
-            data.push({Path: filepath, Ext: ext, Linenumber: "", Linetext: ""});
+            data.push({Path: filepath, Ext: ext, Linenumber: " ", Linetext: " "});
         }
         res.json(data);
     });

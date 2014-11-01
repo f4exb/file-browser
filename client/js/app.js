@@ -124,7 +124,7 @@
                 }
             },
             { // line text
-                "sTitle": "", "mData": null, "bSortable": false, "sClass": "head2", "sWidth": "10px",
+                "sTitle": "", "mData": null, "bSortable": false, "sClass": "head2", "sWidth": "500px",
                 "render": function (data, type, row, meta) {
                     return data.Linetext;
                 }
@@ -136,9 +136,10 @@
 
     $(".findfiles").bind("click", function(e){
         var findregex = $(".findtext")[0].value;
-        console.log(findregex);
         $.get('/find?path=' + currentPath + '&regex=' + findregex).then(function(data){
             findtable.fnClearTable();
+            findtable.fnDestroy();
+            findtable = $(".findlinksholder").dataTable(findoptions);
             if (data.length > 0) {
                 findtable.fnAddData(data);
             }
