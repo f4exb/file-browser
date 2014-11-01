@@ -101,13 +101,32 @@
         "bServerSide": false,
         "bPaginate": false,
         "bAutoWidth": false,
+        "bSort": false,
         "sScrollY":"250px",
         "sScrollX":"500px",
         "aoColumns": [
-            { // file
-                "sTitle": "", "mData": null, "bSortable": false, "sClass": "head0", "sWidth": "55px",
+            { // icon
+                "sTitle": "", "mData": null, "bSortable": false, "sClass": "headicon", "sWidth": "8px",
                 "render": function (data, type, row, meta) {
-                    return "<a href='/" + data.Path + "' target='_blank'><i class='fa " + getFileIcon(data.Ext) + "'></i>&nbsp;" + data.Path +"</a>";
+                    return "<i class='fa " + getFileIcon(data.Ext) + "'></i>";
+                }
+            },
+            { // file
+                "sTitle": "", "mData": null, "bSortable": true, "sClass": "head0", "sWidth": "70px",
+                "render": function (data, type, row, meta) {
+                    return "<a href='/" + data.Path + "' target='_blank'>" + data.Path +"</a>";
+                }
+            },
+            { // line number
+                "sTitle": "", "mData": null, "bSortable": false, "sClass": "head1", "sWidth": "10px",
+                "render": function (data, type, row, meta) {
+                    return data.Linenumber  ;
+                }
+            },
+            { // line text
+                "sTitle": "", "mData": null, "bSortable": false, "sClass": "head2", "sWidth": "10px",
+                "render": function (data, type, row, meta) {
+                    return data.Linetext;
                 }
             }
         ]
@@ -119,8 +138,8 @@
         var findregex = $(".findtext")[0].value;
         console.log(findregex);
         $.get('/find?path=' + currentPath + '&regex=' + findregex).then(function(data){
+            findtable.fnClearTable();
             if (data.length > 0) {
-                findtable.fnClearTable();
                 findtable.fnAddData(data);
             }
         });
@@ -130,10 +149,8 @@
         var searchregex = $(".searchtext")[0].value;
         console.log(searchregex);
         $.get('/search?path=' + currentPath + '&regex=' + searchregex).then(function(data){
+            findtable.fnClearTable();
             if (data.length > 0) { 
-                //findtable.fnSetColumnVis(1, true);
-                //findtable.fnSetColumnVis(2, true);
-                findtable.fnClearTable();
                 findtable.fnAddData(data);
             }
         });

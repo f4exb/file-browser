@@ -104,14 +104,13 @@ app.get('/find', function(req, res) {
     });
     
     cmd.stdout.on('end', function() {
-        console.log(outbuff);
         var filelist = [];
         var data = [];
         filelist = outbuff.split("\n").slice(0, -1);
         for (var i in filelist) {
             filepath = filelist[i];
             ext = path.extname(filepath);
-            data.push({Path: filepath, Ext: ext});
+            data.push({Path: filepath, Ext: ext, Linenumber: "", Linetext: ""});
         }
         res.json(data);
     });
@@ -141,10 +140,10 @@ app.get('/search', function(req, res) {
         for (var i in matchlist) {
             match = matchlist[i].split(":");
             filepath = match[0];
-            linenum = match[1];
+            linenumber = match[1];
             linetext = (match.slice(2, match.length)).join(":") ;
             ext = path.extname(filepath);
-            data.push({Path: filepath, Ext: ext, Linenum: linenum, Linetext: linetext});
+            data.push({Path: filepath, Ext: ext, Linenumber: linenumber, Linetext: linetext});
         }
         res.json(data);
     });
