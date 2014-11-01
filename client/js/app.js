@@ -102,7 +102,7 @@
         "bPaginate": false,
         "bAutoWidth": false,
         "sScrollY":"250px",
-        "sScrollX":"100%",
+        "sScrollX":"500px",
         "aoColumns": [
             { // file
                 "sTitle": "", "mData": null, "bSortable": false, "sClass": "head0", "sWidth": "55px",
@@ -120,6 +120,19 @@
         console.log(findregex);
         $.get('/find?path=' + currentPath + '&regex=' + findregex).then(function(data){
             if (data.length > 0) {
+                findtable.fnClearTable();
+                findtable.fnAddData(data);
+            }
+        });
+    });
+
+    $(".searchfiles").bind("click", function(e){
+        var searchregex = $(".searchtext")[0].value;
+        console.log(searchregex);
+        $.get('/search?path=' + currentPath + '&regex=' + searchregex).then(function(data){
+            if (data.length > 0) { 
+                //findtable.fnSetColumnVis(1, true);
+                //findtable.fnSetColumnVis(2, true);
                 findtable.fnClearTable();
                 findtable.fnAddData(data);
             }

@@ -116,3 +116,37 @@ app.get('/find', function(req, res) {
         res.json(data);
     });
 });
+
+app.get('/search', function(req, res) {
+    var qpath  = req.query.path || '';
+    var currentDir =  dir;
+    if (qpath) currentDir = path.join(dir, qpath);
+    
+    var qregex = req.query.regex || '.*';
+    var regexstr = "'" + qregex + "'";
+    var cmdargs = ["-Inr", qregex, currentDir];
+    var cmd = spawn("grep", cmdargs);
+    console.log("grep" + cmdargs.join(" "));
+    
+    var outbuff = '';
+    
+    cmd.stdout.on('data', function(data) {
+        outbuff += data;
+    });
+    
+    cmd.stdout.on('end', function() {
+        var matchlist = [];
+        var data = [];
+        matchlist = outbuff.split("\n").slice(0, -1);
+        for (var i in matchlist) {
+            match = matchlist[i].split(":");
+            filepath = match[0];
+            linenum = match[1];
+            linetext = (match.slice(2, match.length)).join(":") ;
+            ext = path.extname(filepath);
+            data.push({Path: filepath, Ext: ext, Linenum: linenum, Linetext: linetext});
+        }
+        res.json(data);
+    });
+});
+    
