@@ -122,8 +122,7 @@ app.get('/search', function(req, res) {
     if (qpath) currentDir = path.join(dir, qpath);
     
     var qregex = req.query.regex || '.*';
-    var regexstr = "'" + qregex + "'";
-    var cmdargs = ["-Inr", qregex, currentDir];
+    var cmdargs = ["-Inr", "-E", qregex, currentDir];
     var cmd = spawn("grep", cmdargs);
     console.log("grep" + cmdargs.join(" "));
     

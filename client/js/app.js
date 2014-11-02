@@ -136,6 +136,7 @@
 
     $(".findfiles").bind("click", function(e){
         var findregex = $(".findtext")[0].value;
+        findregex = findregex.replace(/\\/g, "%5C");
         $.get('/find?path=' + currentPath + '&regex=' + findregex).then(function(data){
             findtable.fnClearTable();
             findtable.fnDestroy();
@@ -148,7 +149,7 @@
 
     $(".searchfiles").bind("click", function(e){
         var searchregex = $(".searchtext")[0].value;
-        console.log(searchregex);
+        searchregex = searchregex.replace(/\\/g, "%5C");
         $.get('/search?path=' + currentPath + '&regex=' + searchregex).then(function(data){
             findtable.fnClearTable();
             if (data.length > 0) { 
