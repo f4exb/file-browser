@@ -15,6 +15,9 @@ function collect(val, memo) {
     return memo;
 }
 
+// define some more mime extensions
+express.static.mime.define({'text/plain': ['go','py','sh','c','cpp']});
+
 program
     .option('-p, --port <port>', 'Port to run the file-browser. Default value is 8088')
     .option('-d, --directory <dir>', 'Path to the directory you want to serve. Default is current directory')
