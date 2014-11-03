@@ -137,7 +137,8 @@
     $(".findfiles").bind("click", function(e){
         var findregex = $(".findtext")[0].value;
         findregex = findregex.replace(/\\/g, "%5C");
-        $.get('/find?path=' + currentPath + '&regex=' + findregex).then(function(data){
+        var path = currentPath || '';
+        $.get('/find?path=' + path + '&regex=' + findregex).then(function(data){
             findtable.fnClearTable();
             findtable.fnDestroy();
             findtable = $(".findlinksholder").dataTable(findoptions);
@@ -150,7 +151,8 @@
     $(".searchfiles").bind("click", function(e){
         var searchregex = $(".searchtext")[0].value;
         searchregex = searchregex.replace(/\\/g, "%5C");
-        $.get('/search?path=' + currentPath + '&regex=' + searchregex).then(function(data){
+        var path = currentPath || '';
+        $.get('/search?path=' + path + '&regex=' + searchregex).then(function(data){
             findtable.fnClearTable();
             if (data.length > 0) { 
                 findtable.fnAddData(data);
