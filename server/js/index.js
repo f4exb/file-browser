@@ -25,7 +25,7 @@ if (!program.directory) program.directory = process.cwd();
 if (!program.port) program.port = 8088;
 
 var app = express();
-var dir = program.directory;
+var dir = '.'; //program.directory;
 app.use(express.static(process.cwd())); //app public directory
 app.use(express.static(dir)); //app public directory
 app.use(express.static(__dirname)); //module directory
