@@ -53,6 +53,7 @@
             var path = aData.Path;
             $(nRow).bind("click", function(e){
                 $.get('/files?path='+ path).then(function(data){
+                    $('#pathlabel').text(path || '.');
                     table.fnClearTable();
                     table.fnAddData(data);
                     currentPath = path;
@@ -75,6 +76,7 @@
     var table = $(".linksholder").dataTable(options);
 
     $.get('/files').then(function(data){
+        $('#pathlabel').text(currentPath || '.');
         table.fnClearTable();
         table.fnAddData(data);
     });
@@ -85,6 +87,7 @@
         var idx = trpath.lastIndexOf("/");
         var path =currentPath.substr(0, idx);
         $.get('/files?path='+ path).then(function(data){
+            $('#pathlabel').text(path || '.');
             table.fnClearTable();
             table.fnAddData(data);
             currentPath = path;
