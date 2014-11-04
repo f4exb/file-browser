@@ -15,13 +15,28 @@ function collect(val, memo) {
     return memo;
 }
 
-// define some more mime extensions
-express.static.mime.define({'text/plain': ['go','py','sh','c','cpp']});
+function setmime(mimedictfilename) {
+    if (mimedictfilename) {
+        try {
+            mimedictstr = fs.readFileSync(mimedictfilename);
+            mimedict = JSON.parse(mimedictstr);
+            express.static.mime.define(mimedict);
+        } catch (e) {
+            if (e.code === 'ENOENT') {
+                console.log(e.message);
+                console.log("Additional MIME types ignored");
+            } else {
+                throw e;
+            }
+        }
+    }
+}
 
 program
     .option('-p, --port <port>', 'Port to run the file-browser. Default value is 8088')
     .option('-d, --directory <dir>', 'Path to the directory you want to serve. Default is current directory')
     .option('-e, --exclude <exclude>', 'File extensions to exclude. To exclude multiple extension pass -e multiple times. e.g. ( -e .js -e .cs -e .swp) ', collect, [])
+    .option('-m, --mimedict <JSON file>', 'Dictionnary of additional MIME types in JSON format', setmime)
     .parse(process.argv);
 
 if (!program.directory) program.directory = '.'; //process.cwd();
@@ -33,6 +48,9 @@ app.use(express.static(process.cwd())); //app public directory
 app.use(express.static(dir)); //app public directory
 app.use(express.static(__dirname)); //module directory
 var server = http.createServer(app);
+
+// define some more mime extensions
+express.static.mime.define({'text/plain': ['go','py']});
 
 server.listen(program.port);
 console.log("Please open the link in your browser http://<YOUR-IP>:" + program.port);
