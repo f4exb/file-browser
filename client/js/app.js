@@ -81,7 +81,8 @@
 
     $(".up").bind("click", function(e){
         if (!currentPath) return;
-        var idx = currentPath.lastIndexOf("/");
+        var trpath = currentPath.replace(/\\/g, "/"); // make sure we only have slashes as directory separator
+        var idx = trpath.lastIndexOf("/");
         var path =currentPath.substr(0, idx);
         $.get('/files?path='+ path).then(function(data){
             table.fnClearTable();
